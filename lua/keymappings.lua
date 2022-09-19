@@ -69,6 +69,9 @@ keymap("n", "<leader>sh", "<cmd>lua require('telescope.builtin').help_tags()<cr>
 -- PHP CS Fixer mapping
 keymap('n', '<leader>f', ':PhpCsFixerFixFile()<CR>', options)
 
+-- Close buffer
+keymap('n', '<leader>q', ':bw<CR>', options)
+
 vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
   {silent = true, noremap = true}
 )
