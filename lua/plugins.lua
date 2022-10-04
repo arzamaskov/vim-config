@@ -244,7 +244,7 @@ return require('packer').startup({
       end
     }
 
-    use { 'stephpy/vim-php-cs-fixer' }
+    use { 'blueyed/smarty.vim' }
 
     require('plugins.treesitter').run(use)
     require('plugins.lsp').run(use)
