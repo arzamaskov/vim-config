@@ -56,7 +56,7 @@ keymap("n", "[g", "<cmd>lua vim.diagnostic.goto_prev({ float = { border = 'round
 
 -- Telescope
 keymap("n", ";", "<cmd>lua require('telescope.builtin').buffers()<cr>", options)
-keymap("n", "<leader>sf", "<cmd>lua require('telescope.builtin').find_files()<cr>", options)
+keymap("n", "<leader>t", "<cmd>lua require('telescope.builtin').find_files()<cr>", options)
 keymap("n", "<leader>sb", "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>", options)
 keymap("n", "<leader>sg", "<cmd>lua require('telescope.builtin').live_grep()<cr>", options)
 keymap("n", "<leader>sd", "<cmd>lua require('telescope.builtin').diagnostics()<cr>", options)
