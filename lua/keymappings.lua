@@ -66,11 +66,8 @@ keymap("n", "<leader>so", "<cmd>lua require('telescope.builtin').lsp_document_sy
 keymap("n", "<leader>sa", "<cmd>lua require('telescope.builtin').lsp_range_code_actions()<cr>", options)
 keymap("n", "<leader>sh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", options)
 
--- PHP CS Fixer mapping
-keymap('n', '<leader>f', ':PhpCsFixerFixFile()<CR>', options)
-
 -- Close buffer
-keymap('n', '<leader>q', ':bw<CR>', options)
+keymap('n', '<leader>q', ':Bdelete<cr>', options)
 
 vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
   {silent = true, noremap = true}
