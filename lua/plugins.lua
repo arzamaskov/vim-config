@@ -1,57 +1,51 @@
 return require('packer').startup({
 
   function(use)
+    -- Packer itself
     use { 'wbthomason/packer.nvim' }
 
-    -- speeding up
+    -- Speeding up
     use { 'lewis6991/impatient.nvim' }
     use { 'nathom/filetype.nvim' }
     use { 'nvim-lua/plenary.nvim' }
 
+    -- Desingn
     use { 'kyazdani42/nvim-web-devicons' }
+
+    -- Universal set of defaults
     use { 'tpope/vim-sensible' }
 
+    -- File manager
     use {
       'kyazdani42/nvim-tree.lua',
       requires = {
         'kyazdani42/nvim-web-devicons'
       },
       config = function()
-        require('nvim-tree').setup {}
+        require('nvim-tree').setup {
+          view = {
+            width = 45
+          }
+        }
       end
     }
 
+    -- -- Colorscheme
     use {
-      'marko-cerovac/material.nvim',
+      "catppuccin/nvim",
+      as = "catppuccin",
       config = function()
-        require('material').setup({
-          italics = {
-            comments = true,
-          },
-          custom_highlights = {
-            CursorLine = { fg = '#ff0000', underline = true }
+        require("catppuccin").setup({
+          styles = {
+            comments = { "italic" },
+            conditionals = { "italic" },
           },
         })
       end
     }
 
-    -- Highlight arguments' definitions and usages, asynchronously, using Treesitter
-    use {
-      'm-demare/hlargs.nvim',
-      requires = { 'nvim-treesitter/nvim-treesitter' }
-    }
-
     -- Switching between a single-line statement and a multi-line one
     use { 'AndrewRadev/splitjoin.vim' }
-
-    use {
-      'TimUntersberger/neogit',
-      config = function()
-        local neogit = require('neogit')
-        neogit.setup()
-      end,
-      requires = 'nvim-lua/plenary.nvim'
-    }
 
     -- DAP (Debug Adapter Protocol)
     use {
@@ -69,6 +63,7 @@ return require('packer').startup({
       end
     }
 
+    -- UI for nvim-dap
     use {
       'rcarriga/nvim-dap-ui',
       requires = {
@@ -76,12 +71,27 @@ return require('packer').startup({
       }
     }
 
-    use { 'antoinemadec/FixCursorHold.nvim' }
-    use { 'stevearc/dressing.nvim' }
-    use { 'tpope/vim-repeat' }
-    use { 'gelguy/wilder.nvim' }
-    use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
+    -- Improve user iput interface
+    use {
+      'stevearc/dressing.nvim',
+      config = function ()
+        local dressing = require('dressing')
+        dressing.setup({
+          input = {
+            get_config = function ()
+              if vim.api.nvim_buf_get_option(0, "filetype") == "NvimTree" then
+                return { enabled = false }
+              end
+            end
+          },
+        })
+      end
+    }
 
+    -- Improve repeat using `.`
+    use { 'tpope/vim-repeat' }
+
+    -- Show a lightbulb in the sign column whenever actions is available
     use {
       'kosayoda/nvim-lightbulb',
       requires = {
@@ -93,8 +103,10 @@ return require('packer').startup({
       end
     }
 
+    -- SchemaStore catalog
     use { 'b0o/schemastore.nvim' }
 
+    -- Status line
     use {
       'feline-nvim/feline.nvim',
       after = "nvim-web-devicons",
@@ -106,13 +118,10 @@ return require('packer').startup({
       end
     }
 
+    -- Highlight trailing whitespaces and delete them by `:StripWhitespace`
     use { 'ntpeters/vim-better-whitespace' }
 
-    use({
-      "iamcco/markdown-preview.nvim",
-      run = function() vim.fn["mkdp#util#install"]() end,
-    })
-
+    -- Annotation generator
     use {
       'danymat/neogen',
       config = function()
@@ -123,6 +132,7 @@ return require('packer').startup({
       },
     }
 
+    -- Autopairs
     use {
       'windwp/nvim-autopairs',
       requires = {
@@ -140,8 +150,10 @@ return require('packer').startup({
       end
     }
 
+    -- Automatically adjusts 'shiftwidth' and 'expandtab
     use { 'tpope/vim-sleuth' }
 
+    -- Indentation guides
     use {
       'lukas-reineke/indent-blankline.nvim',
       config = function()
@@ -152,11 +164,16 @@ return require('packer').startup({
       end
     }
 
-    use { 'dhruvasagar/vim-table-mode' }
+    -- Surroundings parentheses, brackets, quotes, XML tags, and more
     use { 'tpope/vim-surround' }
+
+    -- Search??
     use { 'windwp/nvim-spectre' }
+
+    -- Text searcher
     use { 'dyng/ctrlsf.vim' }
 
+    -- Comments
     use {
       'numToStr/Comment.nvim',
       config = function ()
@@ -167,6 +184,7 @@ return require('packer').startup({
       end
     }
 
+    -- Refactor plugin
     use {
       'ThePrimeagen/refactoring.nvim',
       requires = {
@@ -175,9 +193,9 @@ return require('packer').startup({
       }
     }
 
-    -- Lua
+    -- LSP daignostics, references, implementations, definition and etc.
     use {
-      "folke/trouble.nvim",
+      'folke/trouble.nvim',
       requires = "kyazdani42/nvim-web-devicons",
       config = function()
         require("trouble").setup {
@@ -188,43 +206,23 @@ return require('packer').startup({
       end
     }
 
-    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-    use {
-      'nvim-telescope/telescope.nvim',
-      config = function()
-        local telescope = require('telescope')
-        telescope.load_extension('refactoring')
+    -- Fzf search
+    use({
+      'junegunn/fzf',
+      run = function() vim.fn["fzf#install"]() end,
+    })
+    use 'junegunn/fzf.vim'
 
-        vim.api.nvim_set_keymap(
-          "v",
-          "<leader>rr",
-          "<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
-          { noremap = true }
-        )
+    vim.cmd([[
+      autocmd VimEnter * command! -nargs=* Rg
+      \ call fzf#vim#grep(
+      \   'rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color  "always" '.shellescape(<q-args>), 1,
+      \   <bang>0 ? fzf#vim#with_preview('up:60%')
+      \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+      \   <bang>0)
+    ]])
 
-
-        telescope.setup{
-          defaults = {
-            sorting_strategy = "ascending",
-            mappings = {
-              -- restore default behavior
-              i = {
-                ['<C-u>'] = false,
-                ['<C-d>'] = false,
-              },
-            },
-          },
-          pickers = {
-            buffers = {
-              ignore_current_buffer = true,
-              sort_mru = true
-            }
-          },
-        }
-      end,
-      requires = { 'nvim-lua/plenary.nvim' }
-    }
-
+    -- Git decorations
     use {
       'lewis6991/gitsigns.nvim',
       requires = { 'nvim-lua/plenary.nvim' },
@@ -233,6 +231,7 @@ return require('packer').startup({
       end
     }
 
+    -- Displays a popup with possible key bindings
     use {
       'folke/which-key.nvim',
       config = function()
@@ -244,7 +243,48 @@ return require('packer').startup({
       end
     }
 
+    -- Smarty syntax
     use { 'blueyed/smarty.vim' }
+
+    -- VimWiki
+    use {'vimwiki/vimwiki' }
+    vim.cmd([[
+      let g:vimwiki_list = [{'path': '~/Documents/knowledge/',
+      \ 'index': 'index',
+      \ 'syntax': 'markdown', 'ext': '.txt'}]
+      let g:vimwiki_global_ext = 0
+    ]])
+
+    -- VimWiki Github sync
+    use { 'michal-h21/vimwiki-sync' }
+    vim.cmd([[
+      let g:vimwiki_sync_branch = "main"
+    ]])
+
+    use { 'alok/notational-fzf-vim' }
+    vim.cmd([[
+      let g:nv_search_paths = ['~/Documents/knowledge/']
+      let g:nv_create_note_key = 'ctrl-x'
+      let g:nv_default_extension = '.txt'
+    ]])
+
+    -- Easy motion plugin
+    use {
+      'phaazon/hop.nvim',
+      branch = 'v2', -- optional but strongly recommended
+      config = function()
+        -- you can configure Hop the way you like here; see :h hop-config
+        require'hop'.setup()
+      end
+    }
+
+    -- Start page
+    use {
+      'goolord/alpha-nvim',
+      config = function()
+        require 'alpha'.setup(require 'alpha.themes.startify'.config)
+      end
+    }
 
     require('plugins.treesitter').run(use)
     require('plugins.lsp').run(use)

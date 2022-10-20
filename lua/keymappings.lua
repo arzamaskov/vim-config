@@ -54,21 +54,23 @@ keymap("n", "K", "<cmd>lua vim.lsp.buf.signature_help()<CR>", options)
 keymap("n", "]g", "<cmd>lua vim.diagnostic.goto_next({ float = { border = 'rounded', max_width = 100 }})<CR>", options)
 keymap("n", "[g", "<cmd>lua vim.diagnostic.goto_prev({ float = { border = 'rounded', max_width = 100 }})<CR>", options)
 
--- Telescope
-keymap("n", ";", "<cmd>lua require('telescope.builtin').buffers()<cr>", options)
-keymap("n", "<leader>t", "<cmd>lua require('telescope.builtin').find_files()<cr>", options)
-keymap("n", "<leader>sb", "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>", options)
-keymap("n", "<leader>sg", "<cmd>lua require('telescope.builtin').live_grep()<cr>", options)
-keymap("n", "<leader>sd", "<cmd>lua require('telescope.builtin').diagnostics()<cr>", options)
-keymap("n", "<leader>sc", "<cmd>lua require('telescope.builtin').git_commits()<cr>", options)
-keymap("n", "<leader>sr", "<cmd>lua require('telescope.builtin').lsp_references()<cr>", options)
-keymap("n", "<leader>so", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>", options)
-keymap("n", "<leader>sa", "<cmd>lua require('telescope.builtin').lsp_range_code_actions()<cr>", options)
-keymap("n", "<leader>sh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", options)
+-- FZF Search
+keymap('n', ';', ':Buffers<cr>', options)
+keymap('n', '<leader>t', ':Files<cr>', options)
+keymap('n', '<leader>s', ':Rg<space>', { silent = false })
+keymap('n', '<leader>S', ':exec "Rg ".expand("<cword>")<cr>', options)
 
 -- Close buffer
 keymap('n', '<leader>q', ':Bdelete<cr>', options)
 
+-- Git mappings
+keymap('n', '<leader>g', ':Gitsigns<cr>', options)
+
+-- VimWiki searcher
+keymap('n', '<leader>nv', ':NV<CR>', options)
+keymap('n', '<leader>NV', ':NV!<CR>', options)
+
+-- Display all the troubles in all buffers
 vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
   {silent = true, noremap = true}
 )

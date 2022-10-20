@@ -4,4 +4,4 @@ vim.api.nvim_create_autocmd("TextYankPost",
 
 -- Enable spell checking for certain file types
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, { pattern = { "*.txt", "*.md" },
-  command = "setlocal spell" })
+  command = "setlocal spell spelllang=en_us,ru" })

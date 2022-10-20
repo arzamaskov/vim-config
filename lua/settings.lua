@@ -26,6 +26,8 @@ local options = {
   updatetime    = 100,                      -- Faster completion
   viminfo       = "'1000",                  -- Increase the size of file history
   wrap          = true,                     -- Display long lines as just one line
+  -- foldmethod	= "indent",
+  -- foldlevel	= 2
 }
 
 local globals = {
