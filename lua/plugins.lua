@@ -167,6 +167,9 @@ return require('packer').startup({
     -- Surroundings parentheses, brackets, quotes, XML tags, and more
     use { 'tpope/vim-surround' }
 
+    -- Improve mappings
+    use { 'tpope/vim-unimpaired' }
+
     -- Search??
     use { 'windwp/nvim-spectre' }
 
