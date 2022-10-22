@@ -251,6 +251,9 @@ return require('packer').startup({
     -- Smarty syntax
     use { 'blueyed/smarty.vim' }
 
+    -- Slim-rails syntax
+    use { 'slim-template/vim-slim' }
+
     -- VimWiki
     use {'vimwiki/vimwiki' }
     vim.cmd([[
