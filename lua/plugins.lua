@@ -36,11 +36,13 @@ return require('packer').startup({
       as = "catppuccin",
       config = function()
         require("catppuccin").setup({
+         flavour = "mocha",
           styles = {
             comments = { "italic" },
             conditionals = { "italic" },
           },
         })
+        vim.api.nvim_command 'colorscheme catppuccin'
       end
     }
 
