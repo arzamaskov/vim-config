@@ -29,10 +29,10 @@ keymap('n', 'gn', ':bn<CR>', options)
 keymap('n', 'gp', ':bp<CR>', options)
 
 -- Don't yank on delete char
-keymap('n', 'x', '"_x', options)
-keymap('n', 'X', '"_X', options)
-keymap('v', 'x', '"_x', options)
-keymap('v', 'X', '"_X', options)
+-- keymap('n', 'x', '"_x', options)
+-- keymap('n', 'X', '"_X', options)
+-- keymap('v', 'x', '"_x', options)
+-- keymap('v', 'X', '"_X', options)
 
 -- Don't yank on visual paste
 keymap('v', 'p', '"_dP', options)
@@ -67,7 +67,7 @@ keymap('n', '<leader>q', ':Bdelete<cr>', options)
 keymap('n', '<leader>g', ':Gitsigns<cr>', options)
 
 -- VimWiki searcher
-keymap('n', '<leader>nv', ':NV<CR>', options)
+keymap('n', '<leader>nv', ':NV!<CR>', options)
 keymap('n', '<leader>NV', ':NV!<CR>', options)
 
 -- Display all the troubles in all buffers

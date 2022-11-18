@@ -36,14 +36,47 @@ return require('packer').startup({
       as = "catppuccin",
       config = function()
         require("catppuccin").setup({
-         flavour = "mocha",
-          styles = {
-            comments = { "italic" },
-            conditionals = { "italic" },
-          },
+         -- flavour = "mocha",
+         flavour = "latte",
+         styles = {
+           comments = { "italic" },
+           conditionals = { "italic" },
+         },
+         native_lsp = {
+           enabled = true,
+           virtual_text = {
+             errors = { "italic" },
+             hints = { "italic" },
+             warnings = { "italic" },
+             information = { "italic" },
+           },
+           underlines = {
+             errors = { "undercurl" },
+             hints = { "undercurl" },
+             warnings = { "undercurl" },
+             information = { "undercurl" },
+           },
+         },
+
+       })
+       -- vim.api.nvim_command 'colorscheme catppuccin'
+     end
+   }
+
+   use {
+      "ellisonleao/gruvbox.nvim",
+      config = function ()
+        require("gruvbox").setup({
+          undercurl = true,
+          italic = true,
+          contrast = "hard"
         })
-        vim.api.nvim_command 'colorscheme catppuccin'
+        -- vim.cmd("colorscheme gruvbox")
       end
+    }
+
+    use {
+      'wuelnerdotexe/vim-enfocado'
     }
 
     -- Switching between a single-line statement and a multi-line one
@@ -109,14 +142,34 @@ return require('packer').startup({
     use { 'b0o/schemastore.nvim' }
 
     -- Status line
+    -- use {
+    --   'feline-nvim/feline.nvim',
+    --   after = "nvim-web-devicons",
+    --   config = function()
+    --     local ctp_feline = require('catppuccin.groups.integrations.feline')
+    --     require('feline').setup({
+    --       -- preset = 'noicon',
+    --       components = ctp_feline.get()
+    --     })
+    --     require('feline').use_theme('default')
+    --   end
+    -- }
     use {
-      'feline-nvim/feline.nvim',
-      after = "nvim-web-devicons",
+      'nvim-lualine/lualine.nvim',
+      requires = {
+        'kyazdani42/nvim-web-devicons',
+        opt = true
+      },
       config = function()
-        require('feline').setup({
-          -- preset = 'noicon'
-        })
-        require('feline').use_theme('default')
+        require('lualine').setup {
+          options = {
+            -- theme = 'enfocado',
+            theme = 'onelight',
+            disabled_filetypes = {
+              'packer', 'NvimTree'
+            }
+          }
+        }
       end
     }
 
@@ -221,7 +274,7 @@ return require('packer').startup({
     vim.cmd([[
       autocmd VimEnter * command! -nargs=* Rg
       \ call fzf#vim#grep(
-      \   'rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color  "always" '.shellescape(<q-args>), 1,
+      \   'rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --glob "!var/cache/*" --color  "always" '.shellescape(<q-args>), 1,
       \   <bang>0 ? fzf#vim#with_preview('up:60%')
       \           : fzf#vim#with_preview('right:50%:hidden', '?'),
       \   <bang>0)
@@ -257,21 +310,21 @@ return require('packer').startup({
     -- VimWiki
     use {'vimwiki/vimwiki' }
     vim.cmd([[
-      let g:vimwiki_list = [{'path': '~/Documents/knowledge/',
+      let g:vimwiki_list = [{'path': '~/Documents/Knowledge/',
       \ 'index': 'index',
       \ 'syntax': 'markdown', 'ext': '.txt'}]
       let g:vimwiki_global_ext = 0
     ]])
 
     -- VimWiki Github sync
-    use { 'michal-h21/vimwiki-sync' }
-    vim.cmd([[
-      let g:vimwiki_sync_branch = "main"
-    ]])
+    -- use { 'michal-h21/vimwiki-sync' }
+    -- vim.cmd([[
+    --   let g:vimwiki_sync_branch = "main"
+    -- ]])
 
     use { 'alok/notational-fzf-vim' }
     vim.cmd([[
-      let g:nv_search_paths = ['~/Documents/knowledge/']
+      let g:nv_search_paths = ['~/Documents/Knowledge/']
       let g:nv_create_note_key = 'ctrl-x'
       let g:nv_default_extension = '.txt'
     ]])
@@ -293,6 +346,24 @@ return require('packer').startup({
         require 'alpha'.setup(require 'alpha.themes.startify'.config)
       end
     }
+
+    use {
+      'epwalsh/obsidian.nvim',
+      config = function ()
+        require('obsidian').setup({
+          dir = "~/Documents/Knowledge",
+          completion = {
+            nvim_cmp = true,
+          }
+        })
+      end
+    }
+
+    -- Focused mode in Vim
+    use { 'junegunn/goyo.vim' }
+    use { 'junegunn/limelight.vim' }
+
+    -- Formatters & linters
 
     require('plugins.treesitter').run(use)
     require('plugins.lsp').run(use)
