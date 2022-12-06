@@ -30,36 +30,47 @@ return require('packer').startup({
       end
     }
 
-    -- -- Colorscheme
+    -- Colorscheme
     use {
       "catppuccin/nvim",
       as = "catppuccin",
       config = function()
         require("catppuccin").setup({
-         -- flavour = "mocha",
-         flavour = "latte",
+         flavour = "mocha",
+         -- flavour = "latte",
+         background = {
+           light = "latte",
+           dark = "mocha"
+         },
          styles = {
            comments = { "italic" },
            conditionals = { "italic" },
          },
-         native_lsp = {
-           enabled = true,
-           virtual_text = {
-             errors = { "italic" },
-             hints = { "italic" },
-             warnings = { "italic" },
-             information = { "italic" },
-           },
-           underlines = {
-             errors = { "undercurl" },
-             hints = { "undercurl" },
-             warnings = { "undercurl" },
-             information = { "undercurl" },
-           },
-         },
-
+         integrations = {
+           cmp = true,
+           gitsigns = true,
+           nvimtree = true,
+           lsp_trouble = true,
+           markdown = true,
+           mason = true,
+           native_lsp = {
+             enabled = true,
+             virtual_text = {
+               errors = { "italic" },
+               hints = { "italic" },
+               warnings = { "italic" },
+               information = { "italic" },
+             },
+             underlines = {
+               errors = { "undercurl" },
+               hints = { "undercurl" },
+               warnings = { "undercurl" },
+               information = { "undercurl" },
+             },
+           }
+         }
        })
-       -- vim.api.nvim_command 'colorscheme catppuccin'
+       vim.api.nvim_command 'colorscheme catppuccin'
      end
    }
 
@@ -78,6 +89,8 @@ return require('packer').startup({
     use {
       'wuelnerdotexe/vim-enfocado'
     }
+
+    use { 'marko-cerovac/material.nvim' }
 
     -- Switching between a single-line statement and a multi-line one
     use { 'AndrewRadev/splitjoin.vim' }
@@ -142,36 +155,36 @@ return require('packer').startup({
     use { 'b0o/schemastore.nvim' }
 
     -- Status line
-    -- use {
-    --   'feline-nvim/feline.nvim',
-    --   after = "nvim-web-devicons",
-    --   config = function()
-    --     local ctp_feline = require('catppuccin.groups.integrations.feline')
-    --     require('feline').setup({
-    --       -- preset = 'noicon',
-    --       components = ctp_feline.get()
-    --     })
-    --     require('feline').use_theme('default')
-    --   end
-    -- }
     use {
-      'nvim-lualine/lualine.nvim',
-      requires = {
-        'kyazdani42/nvim-web-devicons',
-        opt = true
-      },
+      'feline-nvim/feline.nvim',
+      after = "nvim-web-devicons",
       config = function()
-        require('lualine').setup {
-          options = {
-            -- theme = 'enfocado',
-            theme = 'onelight',
-            disabled_filetypes = {
-              'packer', 'NvimTree'
-            }
-          }
-        }
+        -- local ctp_feline = require('catppuccin.groups.integrations.feline')
+        require('feline').setup({
+          -- preset = 'noicon',
+          -- components = ctp_feline.get()
+        })
+        require('feline').use_theme('default')
       end
     }
+    -- use {
+    --   'nvim-lualine/lualine.nvim',
+    --   requires = {
+    --     'kyazdani42/nvim-web-devicons',
+    --     opt = true
+    --   },
+    --   config = function()
+    --     require('lualine').setup {
+    --       options = {
+    --         -- theme = 'enfocado',
+    --         theme = 'onelight',
+    --         disabled_filetypes = {
+    --           'packer', 'NvimTree'
+    --         }
+    --       }
+    --     }
+    --   end
+    -- }
 
     -- Highlight trailing whitespaces and delete them by `:StripWhitespace`
     use { 'ntpeters/vim-better-whitespace' }
@@ -311,8 +324,8 @@ return require('packer').startup({
     use {'vimwiki/vimwiki' }
     vim.cmd([[
       let g:vimwiki_list = [{'path': '~/Documents/Knowledge/',
-      \ 'index': 'index',
-      \ 'syntax': 'markdown', 'ext': '.txt'}]
+      \ 'index': 'README',
+      \ 'syntax': 'markdown', 'ext': '.md'}]
       let g:vimwiki_global_ext = 0
     ]])
 
@@ -326,7 +339,7 @@ return require('packer').startup({
     vim.cmd([[
       let g:nv_search_paths = ['~/Documents/Knowledge/']
       let g:nv_create_note_key = 'ctrl-x'
-      let g:nv_default_extension = '.txt'
+      let g:nv_default_extension = '.md'
     ]])
 
     -- Easy motion plugin
@@ -347,21 +360,24 @@ return require('packer').startup({
       end
     }
 
-    use {
-      'epwalsh/obsidian.nvim',
-      config = function ()
-        require('obsidian').setup({
-          dir = "~/Documents/Knowledge",
-          completion = {
-            nvim_cmp = true,
-          }
-        })
-      end
-    }
+    -- use {
+    --   'epwalsh/obsidian.nvim',
+    --   config = function ()
+    --     require('obsidian').setup({
+    --       dir = "~/Documents/Knowledge",
+    --       completion = {
+    --         nvim_cmp = true,
+    --       }
+    --     })
+    --   end
+    -- }
 
     -- Focused mode in Vim
     use { 'junegunn/goyo.vim' }
     use { 'junegunn/limelight.vim' }
+
+    -- Send selected content in Carbon
+    use { 'kristijanhusak/vim-carbon-now-sh' }
 
     -- Formatters & linters
 

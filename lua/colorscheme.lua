@@ -3,7 +3,7 @@ if not present then
   return
 end
 
-vim.cmd([[
-  set background=light
-  colorscheme enfocado
-]])
+-- vim.cmd([[
+--   set background=light
+--   colorscheme enfocado
+-- ]])

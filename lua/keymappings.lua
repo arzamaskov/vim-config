@@ -57,8 +57,8 @@ keymap("n", "[g", "<cmd>lua vim.diagnostic.goto_prev({ float = { border = 'round
 -- FZF Search
 keymap('n', ';', ':Buffers<cr>', options)
 keymap('n', '<leader>t', ':Files<cr>', options)
-keymap('n', '<leader>s', ':Rg<space>', { silent = false })
-keymap('n', '<leader>S', ':exec "Rg ".expand("<cword>")<cr>', options)
+keymap('n', '<leader>f', ':Rg<space>', { silent = false })
+keymap('n', '<leader>F', ':exec "Rg ".expand("<cword>")<cr>', options)
 
 -- Close buffer
 keymap('n', '<leader>q', ':Bdelete<cr>', options)
@@ -74,3 +74,7 @@ keymap('n', '<leader>NV', ':NV!<CR>', options)
 vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
   {silent = true, noremap = true}
 )
+
+-- Send selected content in Carbon
+keymap('n', '<F9>', ':CarbonNowSh<CR>', options)
+keymap('v', '<F9>', ':CarbonNowSh<CR>', options)
