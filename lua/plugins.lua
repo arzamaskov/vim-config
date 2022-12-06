@@ -379,6 +379,9 @@ return require('packer').startup({
     -- Send selected content in Carbon
     use { 'kristijanhusak/vim-carbon-now-sh' }
 
+    -- Add CSV support
+    use { 'mechatroner/rainbow_csv' }
+
     -- Formatters & linters
 
     require('plugins.treesitter').run(use)
