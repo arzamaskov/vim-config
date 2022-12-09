@@ -2,7 +2,7 @@ local keymap = vim.keymap.set
 local options = { silent = true }
 
 -- Disable search result highlighting
-keymap('n', '<ESC>', ':nohlsearch<CR>', options)
+keymap('n', '<C-[>', ':nohlsearch<CR>', options)
 
 -- Open / close file manager
 keymap('n', '<leader><leader>', ':NvimTreeToggle<CR>', options)

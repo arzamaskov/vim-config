@@ -46,6 +46,11 @@ return require('packer').startup({
            comments = { "italic" },
            conditionals = { "italic" },
          },
+         color_overrides = {
+           mocha = {
+             base = "#002b36",
+           },
+         },
          integrations = {
            cmp = true,
            gitsigns = true,
@@ -155,18 +160,18 @@ return require('packer').startup({
     use { 'b0o/schemastore.nvim' }
 
     -- Status line
-    use {
-      'feline-nvim/feline.nvim',
-      after = "nvim-web-devicons",
-      config = function()
-        -- local ctp_feline = require('catppuccin.groups.integrations.feline')
-        require('feline').setup({
-          -- preset = 'noicon',
-          -- components = ctp_feline.get()
-        })
-        require('feline').use_theme('default')
-      end
-    }
+    -- use {
+    --   'feline-nvim/feline.nvim',
+    --   after = "nvim-web-devicons",
+    --   config = function()
+    --     -- local ctp_feline = require('catppuccin.groups.integrations.feline')
+    --     require('feline').setup({
+    --       -- preset = 'noicon',
+    --       -- components = ctp_feline.get()
+    --     })
+    --     require('feline').use_theme('default')
+    --   end
+    -- }
     -- use {
     --   'nvim-lualine/lualine.nvim',
     --   requires = {
