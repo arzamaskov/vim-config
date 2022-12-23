@@ -82,3 +82,7 @@ vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
 -- Send selected content in Carbon
 keymap('n', '<F9>', ':CarbonNowSh<CR>', options)
 keymap('v', '<F9>', ':CarbonNowSh<CR>', options)
+
+-- Format JSON
+keymap('n', '<leader>jq', ':%!python -m json.tool<CR>', options)
+keymap('v', '<leader>jq', '!python -m json.tool<CR>', options)
