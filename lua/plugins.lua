@@ -21,6 +21,7 @@ return require('packer').startup({
       requires = {
         'kyazdani42/nvim-web-devicons'
       },
+      commit = '949913f1860eb85024fa1967dbd89ac797777b0d',
       config = function()
         require('nvim-tree').setup {
           view = {
@@ -34,6 +35,7 @@ return require('packer').startup({
     use {
       "catppuccin/nvim",
       as = "catppuccin",
+      tag = 'v0.2.4',
       config = function()
         require("catppuccin").setup({
          flavour = "mocha",
