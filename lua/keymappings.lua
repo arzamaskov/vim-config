@@ -9,6 +9,10 @@ keymap('n', '<leader><leader>', ':NvimTreeToggle<CR>', options)
 -- Move the cursor it the tree for the curren buffer
 keymap('n', '<C-n>', ':NvimTreeFindFile<CR>', options)
 
+keymap("n", "<leader>mn", require("nvim-tree.api").marks.navigate.next, options)
+keymap("n", "<leader>mp", require("nvim-tree.api").marks.navigate.prev, options)
+keymap("n", "<leader>ms", require("nvim-tree.api").marks.navigate.select, options)
+
 -- Better window movements
 keymap('n', '<C-l>', '<C-w>l', options)
 keymap('n', '<C-h>', '<C-w>h', options)
