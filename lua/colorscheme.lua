@@ -20,13 +20,11 @@ vim.cmd([[
   set statusline+=%{b:gitbranch}
   set statusline+=%y
   set statusline+=\ 
-  set statusline+=%{strlen(&fenc)?&fenc:'none'}
+  set statusline+=[%{strlen(&fenc)?&fenc:'none'}:%{&ff}]
   set statusline+=\ 
-  set statusline+=%l
-  set statusline+=:
-  set statusline+=%c
-  set statusline+=/
-  set statusline+=%L
+  set statusline+=[line:%l/%L]
+  set statusline+=\ 
+  set statusline+=col:%03c
   set statusline+=\ 
   set statusline+=%P
 
@@ -37,7 +35,7 @@ vim.cmd([[
         let l:dir=expand('%:p:h')
         let l:gitrevparse = system("git -C ".l:dir." rev-parse --abbrev-ref HEAD")
         if !v:shell_error
-          let b:gitbranch="(".substitute(l:gitrevparse, '\n', '', 'g').") "
+          let b:gitbranch="git:".substitute(l:gitrevparse, '\n', '', 'g')." "
         endif
       catch
       endtry

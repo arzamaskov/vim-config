@@ -19,3 +19,9 @@ vim.cmd([[
   autocmd! User GoyoEnter Limelight
   autocmd! User GoyoLeave Limelight!
 ]])
+
+vim.cmd([[
+  " au BufRead,BufNewFile *.html set syntax=liquid
+  autocmd TermOpen * setlocal statusline=%{b:term_title}
+  au BufRead,BufNewFile .env set syntax=sh
+]])

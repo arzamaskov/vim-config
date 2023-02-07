@@ -100,7 +100,12 @@ return require('packer').startup({
     use { 'marko-cerovac/material.nvim' }
 
     -- Switching between a single-line statement and a multi-line one
-    use { 'AndrewRadev/splitjoin.vim' }
+    use {
+      'AndrewRadev/splitjoin.vim',
+      config = function()
+       vim.api.nvim_command 'let g:splitjoin_php_method_chain_full = 1'
+      end
+    }
 
     -- DAP (Debug Adapter Protocol)
     use {
@@ -187,7 +192,7 @@ return require('packer').startup({
     --     require('lualine').setup {
     --       options = {
     --         -- theme = 'enfocado',
-    --         theme = 'onelight',
+    --         -- theme = 'onelight',
     --         disabled_filetypes = {
     --           'packer', 'NvimTree'
     --         }
@@ -247,6 +252,8 @@ return require('packer').startup({
 
     -- Improve mappings
     use { 'tpope/vim-unimpaired' }
+
+    use { 'tpope/vim-liquid' }
 
     -- Search??
     use { 'windwp/nvim-spectre' }
@@ -333,7 +340,7 @@ return require('packer').startup({
     -- VimWiki
     use {'vimwiki/vimwiki' }
     vim.cmd([[
-      let g:vimwiki_list = [{'path': '~/Documents/Knowledge/',
+      let g:vimwiki_list = [{'path': '~/.notes/',
       \ 'index': 'README',
       \ 'syntax': 'markdown', 'ext': '.md'}]
       let g:vimwiki_global_ext = 0
@@ -391,6 +398,9 @@ return require('packer').startup({
 
     -- Add CSV support
     use { 'mechatroner/rainbow_csv' }
+
+    -- Code statistics
+    use 'wakatime/vim-wakatime'
 
     -- Formatters & linters
 

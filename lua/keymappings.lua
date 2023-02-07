@@ -86,3 +86,7 @@ keymap('v', '<F9>', ':CarbonNowSh<CR>', options)
 -- Format JSON
 keymap('n', '<leader>jq', ':%!python -m json.tool<CR>', options)
 keymap('v', '<leader>jq', '!python -m json.tool<CR>', options)
+
+-- CtrlSF mappings
+keymap('n', '<C-F>f', ':CtrlSF ', { silent = false })
+keymap('n', '<C-F>t', ':CtrlSFToggle<cr>', options)
